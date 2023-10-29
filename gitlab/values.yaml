@@ -1,0 +1,60 @@
+gitlab:
+  global:
+    edition: ce
+    hosts:
+      domain: bouvier.family
+
+    ingress:
+      configureCertManager: false
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+      tls:
+        secretName: gitlab-tls
+
+    smtp:
+      enabled: true
+      address: ssl0.ovh.net
+      port: 465
+      user_name: ogier@ars3nic.ch
+      password:
+        secret: gitlab-smtp-credentials
+        key: password
+      authentication: plain
+      tls: true
+
+    praefect:
+      enabled: false
+      replaceInternalGitaly: false
+      autoMigrate: true
+      virtualStorages:
+        - name: praefect
+          gitalyReplicas: 3
+          maxUnavailable: 1
+
+  gitlab:
+    webservice:
+      ingress:
+        tls:
+          secretName: gitlab-gitlab-tls
+  registry:
+    ingress:
+      tls:
+        secretName: gitlab-registry-tls
+  minio:
+    ingress:
+      tls:
+        secretName: gitlab-minio-tls
+
+
+  email:
+    from: "gitlab@ars3nic.ch"
+    display_name: Gitlab
+  time_zone: Europe/Zurich
+
+  prometheus:
+    install: false        # Use the cluster wide prometheus
+
+  certmanager:
+    install: false
+  certmanager-issuer:
+    email: "ogier@bouvier.family"
