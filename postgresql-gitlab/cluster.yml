@@ -1,0 +1,25 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: postgresql-gitlab
+  namespace: gitlab-system
+spec:
+  instances: 3
+  storage:
+    pvcTemplate:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 5Gi
+      storageClassName: longhorn-gitlab
+  externalClusters:
+    - name: gitlab-bundled
+      connectionParameters:
+        host: gitlab-postgresql
+        user: postgres
+        dbname: postgres
+        sslmode: disable
+      password:
+        name: gitlab-postgresql-password
+        key: postgresql-postgres-password
