@@ -4,6 +4,15 @@ gitlab:
     hosts:
       domain: bouvier.family
 
+    psql:
+      host: postgresql-gitlab-rw
+      username: gitlab
+      database: gitlabhq_production
+      password:
+        useSecret: true
+        secret: gitlab-postgresql-password
+        key: postgresql-password
+
     ingress:
       configureCertManager: false
       annotations:
@@ -45,16 +54,20 @@ gitlab:
       tls:
         secretName: gitlab-minio-tls
 
-
   email:
     from: "gitlab@ars3nic.ch"
     display_name: Gitlab
   time_zone: Europe/Zurich
 
   prometheus:
-    install: false        # Use the cluster wide prometheus
+    install: false # Use the cluster wide prometheus
 
   certmanager:
     install: false
   certmanager-issuer:
     email: "ogier@bouvier.family"
+  gitlab-runner:
+    install: false
+
+  postgresql:
+    install: false

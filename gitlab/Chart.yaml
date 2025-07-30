@@ -2,8 +2,8 @@ apiVersion: v2
 name: gitlab-subchart
 type: application
 version: 7.3.0
-appVersion: 16.3.0
+appVersion: 17.5.1
 dependencies:
   - name: gitlab
-    version: 7.5.0
+    version: 9.2.1
     repository: https://charts.gitlab.io
