@@ -1,4 +1,6 @@
 gitlab:
+  upgradeCheck:
+    enabled: false
   global:
     edition: ce
     hosts:
